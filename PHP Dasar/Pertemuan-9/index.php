@@ -1,0 +1,83 @@
+<?php
+// Connect Database
+$conn = mysqli_connect("localhost", "root", "", "phpdasar",);
+
+// Query Database
+$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
+
+// var_dump($result);
+
+// if (!$result) {
+//     echo mysqli_error($conn);
+// }
+
+// Ambil data dari onbject result
+
+//Fetch row Mengembalikan Array Numerik
+// $mhs = mysqli_fetch_row($result);
+// var_dump($mhs[3]);
+//Fetch assoc Mengembalikan Array asosiatif
+// while ($mhs = mysqli_fetch_assoc($result)) {
+//     var_dump($mhs);
+// }
+
+//Fetch array Mengembalikan Array Dua sekaligus
+// $mhs = mysqli_fetch_array($result);
+// var_dump($mhs["jurusan"]);
+//Fetch Object
+// $mhs = mysqli_fetch_object($result);
+// var_dump($mhs -> nama);
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <h1>Daftar mahasiswa</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">NO.</th>
+                <th scope="col">Aksi</th>
+                <th scope="col">Gambar</th>
+                <th scope="col">NRP</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Email</th>
+                <th scope="col">Jurusan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $i = 1; ?>
+            <?php while ($mhs = mysqli_fetch_assoc($result)) :
+            ?>
+                <tr>
+                    <th scope="row"><?php echo $i; ?></th>
+                    <td>
+                        <a href="">Update</a>
+                        <a href="">Delete</a>
+                    </td>
+                    <td><img src="img/<?php echo $mhs["gambar"]; ?>" width="80px"></td>
+                    <td><?php echo $mhs["nrp"]; ?></td>
+                    <td><?php echo $mhs["nama"]; ?></td>
+                    <td><?php echo $mhs["email"]; ?></td>
+                    <td><?php echo $mhs["jurusan"]; ?></td>
+
+                </tr>
+                <?php $i++; ?>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
